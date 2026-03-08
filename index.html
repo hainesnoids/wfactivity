@@ -7,9 +7,38 @@
     <link rel="stylesheet" href="/css/root.css">
 </head>
 <body>
+    <script>
+        function chooseDisplayMode(opt) {
+            //document.querySelector('.frame').classList.remove('hidden');
+            //document.querySelector('.frame').classList.add(opt);
+            document.querySelector('.resize-box').classList.add('hidden');
+            const iframe = document.createElement('iframe');
+            iframe.classList.add('frame');
+            iframe.classList.add(opt);
+            iframe.src = '/resources';
+            iframe.allowFullscreen = true;
+            document.querySelector('.webgl-content').appendChild(iframe);
+        }
+    </script>
     <div class="main">
-        <!--<iframe title="Wacky Flip" class="frame" src="https://game.azgame.io/wacky-flip/" allowfullscreen=""></iframe>-->
-        <iframe title="Wacky Flip" class="frame" src="/resources" allowfullscreen=""></iframe>
+        <div class="resize-box">
+            <h2>Choose a display mode</h2>
+            <div class="flex-row">
+                <button class="resize-limited resize-choice" onclick="chooseDisplayMode('limited')">
+                    <span class="choice-title">Limited View</span>
+                    <img src="img/view-restore.svg" alt="Limited View">
+                    <span>Useful if some UI elements are being cut off.</span>
+                </button>
+                <button class="resize-full resize-choice" onclick="chooseDisplayMode('full')">
+                    <span class="choice-title">Full View</span>
+                    <img src="img/view-fullscreen.svg" alt="Full View">
+                    <span>WIDESCREEN</span>
+                </button>
+            </div>
+        </div>
+        <div class="webgl-content">
+            <!--<iframe title="Wacky Flip" class="frame" src="https://game.azgame.io/wacky-flip/" allowfullscreen=""></iframe>-->
+        </div>
     </div>
 </body>
 </html>
