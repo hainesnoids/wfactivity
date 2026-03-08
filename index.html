@@ -19,17 +19,21 @@
             iframe.allowFullscreen = true;
             document.querySelector('.webgl-content').appendChild(iframe);
         }
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.resize-limited').addEventListener('click', () => {chooseDisplayMode('limited')});
+            document.querySelector('.resize-full').addEventListener('click', () => {chooseDisplayMode('full')});
+        })
     </script>
     <div class="main">
         <div class="resize-box">
             <h2>Choose a display mode</h2>
             <div class="flex-row">
-                <button class="resize-limited resize-choice" onclick="chooseDisplayMode('limited')">
+                <button class="resize-limited resize-choice" >
                     <span class="choice-title">Limited View</span>
                     <img src="img/view-restore.svg" alt="Limited View">
                     <span>Useful if some UI elements are being cut off.</span>
                 </button>
-                <button class="resize-full resize-choice" onclick="chooseDisplayMode('full')">
+                <button class="resize-full resize-choice">
                     <span class="choice-title">Full View</span>
                     <img src="img/view-fullscreen.svg" alt="Full View">
                     <span>WIDESCREEN</span>
