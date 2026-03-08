@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="robots" content="noindex, nofollow">
+        <title>Slope</title>
+        <link rel="stylesheet" href="style.css">
+        <script id="gmsoft-jssdk" src="gmsoftsdk_v5.js"></script>
+        <!--<script src="UnityLoader.js"></script>-->
+        <script>
+            var loaderUrl = "wacky-flip-v25050510.loader.js";
+            var config = {
+                //dataUrl: "wacky-flip-v25050510.data.unityweb",
+                //dataUrl: "https://phonehome.ws4k.net/serve/wacky-flip-v25050510.data.unityweb",
+                dataUrl: "/phonehome/serve/wacky-flip-v25050510.data.unityweb", // fetch this from phonehome (proxy pass) to actually be able to push to git
+                frameworkUrl: "wacky-flip-v25050510.framework.js.unityweb",
+                codeUrl: "wacky-flip-v25050510.wasm.unityweb",
+                streamingAssetsUrl: "https://game.azgame.io/wacky-flip/25050510/StreamingAssets/",
+                companyName: "azgames.io",
+                productName: "Wacky Flip",
+                gameId: 'wacky-flip',
+                productVersion: "25050510",
+                pubId: "",
+                enableMoreGame: "false",
+                enablePromotion: false
+            };
+        </script>
+    </head>
+    <body>
+        <div class="main">
+            <div class="loader-box">
+                <span class="gameloader-progress-info"></span>
+                <div class="progress">
+                    <div id="progress_fill"></div>
+                </div>
+                <span id="loadingBlock"></span>
+            </div>
+            <div class="webgl-content">
+                <div id="unity-container" style="width: 100%; height: 100%; margin: auto">
+                    <canvas id="unity-canvas"></canvas>
+                </div>
+            </div>
+        </div>
+        <script>
+            /*var gameInstance = createUnityInstance(document.querySelector('.unity-shell'), "wackyflip_new.json", (progress) => {
+                UnityProgress();
+            }).then((unityInstance) => {
+                UnityProgress(unityInstance, "complete");
+            });*/
+
+            var progressElement = document.getElementById('progress_fill');
+            var container = document.getElementById("unity-container");
+            var canvas = document.getElementById("unity-canvas");
+            var loadingBar = document.querySelector("#loadingBlock");
+            var progressBarFull = document.querySelector("#progress_fill");
+            var progress_text = document.querySelector(".gameloader-progress-info");
+            let text_percent = "";
+            var script = document.createElement("script");
+            script.src = loaderUrl;
+            script.onload = () => {
+                createUnityInstance(canvas, config, (progress) => {
+                    progressElement.style.width = 100 * progress + "%";
+                    text_percent = "Downloading file: " + Math.round(progress*100) + "%";
+                    progress_text.innerText = text_percent;
+                    if (progress >= 99) {
+                        progress_text.innerText = "Game Loading ...";
+                    }
+                }).then((unityInstance) => {
+                    window.unityInstance = unityInstance;
+                    setTimeout(function() {
+                        loadingBar.style.display = "none";
+                        window.focus();
+                    }, 2000);
+                    container.style.display = "block";
+                }).catch((message) => {
+                    alert(message);
+                });
+            };
+            document.addEventListener('DOMContentLoaded', () => {
+                document.head.appendChild(script);
+            })
+            function firebaseLogEvent() {}
+        </script>
+    </body>
+</html>
