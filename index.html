@@ -18,6 +18,15 @@
             iframe.src = '/resources';
             iframe.allowFullscreen = true;
             document.querySelector('.webgl-content').appendChild(iframe);
+
+            // check for lyra mode
+            const lyraModeCheckbox = document.querySelector('#lyra');
+            if (lyraModeCheckbox.checked) {
+                const lyra = document.createElement('img');
+                lyra.classList.add('lyra');
+                lyra.src = 'img/lyra.png';
+                document.body.appendChild(lyra);
+            }
         }
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('.resize-limited').addEventListener('click', () => {chooseDisplayMode('limited')});
@@ -39,6 +48,9 @@
                     <span>WIDESCREEN</span>
                 </button>
             </div>
+        </div>
+        <div class="bottom-right-settings">
+            <input type="checkbox" id="lyra"><label for="lyra">lyra mode</label>
         </div>
         <div class="webgl-content">
             <!--<iframe title="Wacky Flip" class="frame" src="https://game.azgame.io/wacky-flip/" allowfullscreen=""></iframe>-->
